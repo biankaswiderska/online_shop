@@ -1,7 +1,7 @@
 # online_shop
 
  
-Lubie placki
+Coś co lubie to majonez.
 
 sklep na kurs Coderslab!!
  
