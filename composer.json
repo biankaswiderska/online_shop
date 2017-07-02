@@ -10,8 +10,12 @@
     },
     "authors": [
         {
-            "name": "adeptofvoltron",
-            "email": "b.vanderesch@gmail.com"
+            "name": "Bianka Świderska",
+            "email": "bianka.swiderska@gmail.com"
+        },
+        {
+        	"name": "Piotr Arak",
+        	"email": "arak.piotr@gmail.com"
         }
     ],
     "autoload": {
