@@ -1,6 +1,6 @@
 <?php
+//namespace OShop;
 require_once __DIR__ . '/../conn.php';
-namespace OShop;
 
 class User {
     protected $id;
@@ -51,13 +51,13 @@ class User {
     
     public function saveToDB(PDO $conn) {
         if($this->id == -1) {
-            $stmt = $conn->prepare('INSERT INTO Users(username, email, hash_pass, accessLevel) '
+            $stmt = $conn->prepare('INSERT INTO Users (username, email, hashPass, accessLevel) '
                     . 'VALUES (:username, :email, :pass, :accessLevel)');
             
             $result = $stmt->execute([ 
                 'username' => $this->username, 
                 'email'=> $this->email, 
-                'pass' => $this->hashPass,
+                'pass' => password_hash($this->hashPass, PASSWORD_BCRYPT),
                 'accessLevel' => $this->accessLevel]);
             
             if ($result !== false) {
@@ -92,7 +92,7 @@ class User {
             $loadedUser = new User();
             $loadedUser->id = $row['id'];
             $loadedUser->setUsername($row['username']);
-            $loadedUser->setHashPass($row['hash_pass']);
+            $loadedUser->setHashPass($row['hashPass']);
             $loadedUser->setEmail($row['email']);
             $loadedUser->setAccessLevel($row['accessLevel']);
             return $loadedUser;
@@ -109,7 +109,7 @@ class User {
                 $loadedUser = new User();
                 $loadedUser->id = $row['id'];
                 $loadedUser->setUsername($row['username']);
-                $loadedUser->setHashPass($row['hash_pass']);
+                $loadedUser->setHashPass($row['hashPass']);
                 $loadedUser->setEmail($row['email']);
                 $loadedUser->setAccessLevel($row['accessLevel']);
                 $ret[] = $loadedUser;
@@ -141,7 +141,7 @@ class User {
             $loadedUser = new User();
             $loadedUser->id = $row['id'];
             $loadedUser->setUsername($row['username']);
-            $loadedUser->setHashPass($row['hash_pass']);
+            $loadedUser->setHashPass($row['hashPass']);
             $loadedUser->setEmail($row['email']);
             $loadedUser->setAccessLevel($row['accessLevel']);
 

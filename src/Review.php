@@ -1,6 +1,7 @@
 <?php
-require_once __DIR__ . '/../conn.php';
 namespace OShop;
+
+require_once __DIR__ . '/../conn.php';
 
 class Review {
     private $id;

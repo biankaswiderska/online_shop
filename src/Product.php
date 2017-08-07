@@ -1,5 +1,5 @@
 <?php
-namespace OShop;
+//namespace OShop;
 require_once __DIR__ . '/../conn.php';
 
 class Product {
@@ -12,21 +12,24 @@ class Product {
     private $sizeClass;
 
     
-    public function __contruct($price, $name, $description, $id = -1) {
+    public function __construct($price, $name, $description, $weight, $sizeClass, $id = -1) {
         if ($id = -1) {
             $this->id = -1;
         }
         else {
-            $this->id = $this->setId($id);
+            $this->setId($id);
         }
-        $this->price = $this->setPrice($price);
-        $this->name = $this->setName($name);
-        $this->description = $this->setDescription($description);
+        $this->setPrice($price);
+        $this->setName($name);
+        $this->setDescription($description);
+        $this->setWeight($weight);
+        $this->setSizeClass($sizeClass);
+        return $this;
     }
     
     public function saveToDB(PDO $conn) {
         if($this->id == -1) {
-            $stmt = $conn->prepare('INSERT INTO Products(price, name, description, weight, sizeClass) '
+            $stmt = $conn->prepare('INSERT INTO Products (price, name, description, weight, sizeClass) '
                     . 'VALUES (:price, :name, :description, :weight, :sizeClass)');
             
             $result = $stmt->execute([ 
