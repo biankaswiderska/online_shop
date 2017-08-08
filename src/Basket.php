@@ -1,7 +1,8 @@
 <?php
-namespace OShop;
+//namespace OShop;
 require_once __DIR__ . '/../conn.php';
 require_once __DIR__ . '/Order.php';
+require_once __DIR__ . '/ProductInBasket.php';
 
 class Basket {
     private $id;
@@ -10,40 +11,101 @@ class Basket {
     private $totalValue;
     
     public function __construct($ownerId) {
-        $this->id = $id + '_' + strtotime($time());
-        $this->ownerId = $this->setOwnerId($ownerId);
+        $this->id = strval($ownerId) . '_' . strval(time());
+        $this->id = strval($ownerId). '_' .strval(date('Y-m-d_H:i', time()));
+        $this->setOwnerId($ownerId);
         $this->products = [];
         $this->totalValue = 0;
     }
     
-    public function addProduct(OShop\Product $product, $amount) {
-        $valueOfProductX = $product->getPrice * $amount;
+    public function addProduct(Product $product, $amount) {
+        $valueOfProductX = $product->getPrice() * $amount;
         if (array_key_exists($product->getId(), $this->getProducts())) {
-            $array = $this->products[$product->getId()];
-            $array[0]=+ $amount;
-            $array[1]=+ $valueOfProductX;
+            $this->products[$product->getId()]->changeAmount($amount);
+            $this->products[$product->getId()]->changeValue($valueOfProductX);
+            $this->totalValue+=$valueOfProductX;
         }
         else {
-        $this->products[$product->getId()] = [$amount, $valueOfProductX];
+            $this->products[$product->getId()] = new ProductInBasket($valueOfProductX, $product->getPrice(), $amount, clone $product);
+            $this->totalValue+=$valueOfProductX;
         }
+        $this->saveToSession();
         return $this;
     }
     
-    public function removeProduct(OShop\Product $product) {
+    public function removeProduct(Product $product, $amountToRemove = -1) {
         if (array_key_exists($product->getId(), $this->getProducts())) {
-            unset($this->products[$product->getId()]);
+            if ($amountToRemove == -1) {
+                $this->totalValue-=$this->products[$product->getId()]['value'];
+                unset($this->products[$product->getId()]);            
+            }
+            elseif ($this->products[$product->getId()]->getAmount() <= $amountToRemove) {
+                $this->totalValue-=$this->products[$product->getId()]->getValue();
+                unset($this->products[$product->getId()]);
+            }
+            else {
+                $valueToSubtract = $product->getPrice() * $amountToRemove;
+                $this->totalValue-= $valueToSubtract;
+                $this->products[$product->getId()]->changeAmount($amountToRemove);
+                $this->products[$product->getId()]->changeValue($valueToSubtract);
+            }
+
         }
+        $this->saveToSession();
         return $this;
     }
     
-    public function __clone() {
-        $this->ownerId = clone($this->ownerId);
-        $this->products = clone($this->products);
-        $this->totalValue = clone($this->totalValue);
+//  WERSJA BEZ OBIEKTÓW W KOSZYKU 
+//    public function addProduct(Product $product, $amount) {
+//        $valueOfProductX = $product->getPrice() * $amount;
+//        if (array_key_exists($product->getId(), $this->getProducts())) {
+//            echo 't';
+//            
+//            $this->products[$product->getId()]['amount']+= $amount;
+//            $this->products[$product->getId()]['value']+= $valueOfProductX;
+//        }
+//        else {
+//            $this->products[$product->getId()] = ['amount' => $amount, 'value' => $valueOfProductX];
+//            $this->totalValue+=$valueOfProductX;
+//            $this->products[$product->getId()]['product'] = $product;
+//        }
+//        $this->saveToSession();
+//        return $this;
+//    }
+//    
+//    public function removeProduct(Product $product, $amountToRemove = -1) {
+//        if (array_key_exists($product->getId(), $this->getProducts())) {
+//            if ($amountToRemove == -1) {
+//                $this->totalValue-=$this->products[$product->getId()]['value'];
+//                unset($this->products[$product->getId()]);            
+//            }
+//            elseif ($this->products[$product->getId()]['amount'] <= $amountToRemove) {
+//                $this->totalValue-=$this->products[$product->getId()]['value'];
+//                unset($this->products[$product->getId()]);
+//            }
+//            else {
+//                $valueToSubtract = $product->getPrice() * $amountToRemove;
+//                $this->totalValue-= $valueToSubtract;
+//                $this->products[$product->getId()]['amount']-=$amountToRemove;
+//                $this->products[$product->getId()]['value']-= $valueToSubtract;
+//            }
+//
+//        }
+//        $this->saveToSession();
+//        return $this;
+//    }
+    
+    private function saveToSession() {
+        $_SESSION['basket'] = $this;
     }
     
     public function createOrder() {
-        $order = new Order($this->getOwnerId(), $creationDate, $status, $this->getProducts(), $this->getTotalValue());
+        $productsForOrder = [];
+        foreach ($this->products as $k => $product) {
+            $productsForOrder[$k] = clone $product;
+        }
+               
+        $order = new Order($this->getOwnerId(), date('Y-m-d H:i:s', time()), 0, $productsForOrder, $this->getTotalValue());
         return $order;
     }
     

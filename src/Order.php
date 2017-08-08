@@ -1,5 +1,5 @@
 <?php
-namespace OShop;
+//namespace OShop;
 require_once __DIR__ . '/../conn.php';
 
 class Order {
@@ -10,13 +10,14 @@ class Order {
     private $products;
     private $totalValue;
     
-    public function __construct($ownerId = '', $creationDate = '', $status = 0, $products = [], $totalValue = '', $id = -1) {
+    public function __construct($ownerId, $creationDate, $status = 0, $products = [], $totalValue = '', $id = -1) {
         if ($id == -1) {
            $this->id = -1; 
         }
         else {
             $this->setId($id);
         }
+        $this->setProducs($products);
         $this->setOwnerId($ownerId);
         $this->setCreationDate($creationDate);
         $this->setStatus($status);
