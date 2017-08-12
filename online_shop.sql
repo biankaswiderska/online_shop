@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Czas generowania: 08 Sie 2017, 23:24
+-- Czas generowania: 12 Sie 2017, 08:58
 -- Wersja serwera: 5.7.18-0ubuntu0.16.04.1
 -- Wersja PHP: 7.0.18-0ubuntu0.16.04.1
 
@@ -19,6 +19,35 @@ SET time_zone = "+00:00";
 --
 -- Baza danych: `online_shop`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `Addresses`
+--
+
+CREATE TABLE `Addresses` (
+  `id` int(11) NOT NULL,
+  `street` varchar(35) NOT NULL,
+  `streetno` varchar(8) NOT NULL,
+  `localno` varchar(5) NOT NULL,
+  `postcode` varchar(6) NOT NULL,
+  `city` varchar(30) NOT NULL,
+  `country` varchar(25) NOT NULL,
+  `userId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `Admins`
+--
+
+CREATE TABLE `Admins` (
+  `id` int(11) NOT NULL,
+  `login` varchar(20) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -54,6 +83,18 @@ CREATE TABLE `Orders` (
 INSERT INTO `Orders` (`id`, `ownerId`, `creationDate`, `status`, `products`, `totalValue`) VALUES
 (1, 1, '2017-08-08 23:24:10', 0, 'a:1:{i:-1;O:15:\"ProductInBasket\":4:{s:22:\"\0ProductInBasket\0value\";i:25;s:22:\"\0ProductInBasket\0price\";i:5;s:23:\"\0ProductInBasket\0amount\";i:5;s:24:\"\0ProductInBasket\0product\";O:7:\"Product\":6:{s:11:\"\0Product\0id\";i:-1;s:14:\"\0Product\0price\";i:5;s:13:\"\0Product\0name\";s:7:\"Movie 1\";s:20:\"\0Product\0description\";s:19:\"Description movie 1\";s:15:\"\0Product\0weight\";i:4;s:18:\"\0Product\0sizeClass\";i:1;}}}', 15),
 (2, 1, '2017-08-08 23:24:19', 0, 'a:1:{i:-1;O:15:\"ProductInBasket\":4:{s:22:\"\0ProductInBasket\0value\";i:25;s:22:\"\0ProductInBasket\0price\";i:5;s:23:\"\0ProductInBasket\0amount\";i:5;s:24:\"\0ProductInBasket\0product\";O:7:\"Product\":6:{s:11:\"\0Product\0id\";i:-1;s:14:\"\0Product\0price\";i:5;s:13:\"\0Product\0name\";s:7:\"Movie 1\";s:20:\"\0Product\0description\";s:19:\"Description movie 1\";s:15:\"\0Product\0weight\";i:4;s:18:\"\0Product\0sizeClass\";i:1;}}}', 15);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `Photos`
+--
+
+CREATE TABLE `Photos` (
+  `id` int(11) NOT NULL,
+  `itemId` int(11) NOT NULL,
+  `href` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -99,7 +140,8 @@ CREATE TABLE `Reviews` (
 
 CREATE TABLE `Users` (
   `id` int(11) NOT NULL,
-  `username` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `surname` varchar(50) NOT NULL,
   `email` varchar(255) NOT NULL,
   `hashPass` varchar(255) NOT NULL,
   `accessLevel` int(11) NOT NULL DEFAULT '0'
@@ -109,13 +151,26 @@ CREATE TABLE `Users` (
 -- Zrzut danych tabeli `Users`
 --
 
-INSERT INTO `Users` (`id`, `username`, `email`, `hashPass`, `accessLevel`) VALUES
-(1, 'test1', 'test1@oshop.com', 'test1', 1),
-(2, 'test2', 'test2@oshop.com', '$2y$10$rQbEX/i0o82B4FNpdabIA.FCFPfso58YgdExJQ.TSCABe3mUAiTUS', 1);
+INSERT INTO `Users` (`id`, `name`, `surname`, `email`, `hashPass`, `accessLevel`) VALUES
+(1, 'testname1', 'testsurname1', 'test1@oshop.com', 'test1', 1),
+(2, 'testname2', 'testsurname2', 'test2@oshop.com', '$2y$10$rQbEX/i0o82B4FNpdabIA.FCFPfso58YgdExJQ.TSCABe3mUAiTUS', 1);
 
 --
 -- Indeksy dla zrzutów tabel
 --
+
+--
+-- Indexes for table `Addresses`
+--
+ALTER TABLE `Addresses`
+  ADD UNIQUE KEY `id` (`id`),
+  ADD KEY `toUserId` (`userId`);
+
+--
+-- Indexes for table `Admins`
+--
+ALTER TABLE `Admins`
+  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `Categories`
@@ -130,6 +185,12 @@ ALTER TABLE `Orders`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`),
   ADD KEY `toUsers` (`ownerId`);
+
+--
+-- Indexes for table `Photos`
+--
+ALTER TABLE `Photos`
+  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `Products`
@@ -156,6 +217,16 @@ ALTER TABLE `Users`
 --
 
 --
+-- AUTO_INCREMENT dla tabeli `Addresses`
+--
+ALTER TABLE `Addresses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT dla tabeli `Admins`
+--
+ALTER TABLE `Admins`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT dla tabeli `Categories`
 --
 ALTER TABLE `Categories`
@@ -165,6 +236,11 @@ ALTER TABLE `Categories`
 --
 ALTER TABLE `Orders`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT dla tabeli `Photos`
+--
+ALTER TABLE `Photos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT dla tabeli `Products`
 --
@@ -183,6 +259,12 @@ ALTER TABLE `Users`
 --
 -- Ograniczenia dla zrzutów tabel
 --
+
+--
+-- Ograniczenia dla tabeli `Addresses`
+--
+ALTER TABLE `Addresses`
+  ADD CONSTRAINT `toUserId` FOREIGN KEY (`userId`) REFERENCES `Users` (`id`);
 
 --
 -- Ograniczenia dla tabeli `Orders`
