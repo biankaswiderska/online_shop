@@ -1,6 +1,6 @@
 <?php
 
-class ProductInBasket {
+class ProductInCart {
     private $value;
     private $price;
     private $amount;

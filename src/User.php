@@ -4,14 +4,15 @@ require_once __DIR__ . '/../conn.php';
 
 class User {
     protected $id;
-    private $username;
+    private $name;
+    private $surname;
     private $email;
     private $hashPass;
     private $accessLevel;
         
     public function __construct() {
         $this->id = -1;
-        $this->username = '';
+        $this->name = '';
         $this->email = '';
         $this->hashPass = '';
         $this->accessLevel;
@@ -20,8 +21,8 @@ class User {
     public function getId() {
         return $this->id;
     }
-    public function getUsername() {
-        return $this->username;
+    public function getName() {
+        return $this->name;
     }
     public function getEmail() {
         return $this->email;
@@ -32,8 +33,8 @@ class User {
     public function getAccessLevel() {
         return $this->accessLevel;
     }
-    public function setUsername($username) {
-        $this->username = $username;
+    public function setName($name) {
+        $this->name = $name;
     }
     public function setEmail($email) {
         $this->email = $email;
@@ -48,14 +49,22 @@ class User {
         $this->hashPass = password_hash($password, PASSWORD_BCRYPT);
         
     }
-    
+    function getSurname() {
+        return $this->surname;
+    }
+    function setSurname($surname) {
+        $this->surname = $surname;
+    }
+
+        
     public function saveToDB(PDO $conn) {
         if($this->id == -1) {
-            $stmt = $conn->prepare('INSERT INTO Users (username, email, hashPass, accessLevel) '
-                    . 'VALUES (:username, :email, :pass, :accessLevel)');
+            $stmt = $conn->prepare('INSERT INTO Users (name, surname, email, hashPass, accessLevel) '
+                    . 'VALUES (:name, :surname, :email, :pass, :accessLevel)');
             
             $result = $stmt->execute([ 
-                'username' => $this->username, 
+                'name' => $this->name, 
+                'surname' => $this->surname, 
                 'email'=> $this->email, 
                 'pass' => password_hash($this->hashPass, PASSWORD_BCRYPT),
                 'accessLevel' => $this->accessLevel]);
@@ -67,14 +76,16 @@ class User {
             
         } else {
             $stmt = $conn->prepare('UPDATE Users '
-                    . 'SET username=:username, '
+                    . 'SET name=:name, '
+                    . 'surname=:surname, '
                     . 'email=:email, '
                     . 'hash_pass=:hash_pass, '
                     . 'accessLevel=:accessLevel'
                     . 'WHERE id=:id');
             
             $result = $stmt->execute([ 
-                'username' => $this->username, 
+                'name' => $this->name, 
+                'surname' => $this->surname, 
                 'email' => $this->email,
                 'hash_pass' => $this->hashPass,
                 'accessLevel' => $this->accessLevel,
@@ -91,7 +102,8 @@ class User {
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             $loadedUser = new User();
             $loadedUser->id = $row['id'];
-            $loadedUser->setUsername($row['username']);
+            $loadedUser->setName($row['name']);
+            $loadedUser->setSurname($row['surname']);
             $loadedUser->setHashPass($row['hashPass']);
             $loadedUser->setEmail($row['email']);
             $loadedUser->setAccessLevel($row['accessLevel']);
@@ -108,7 +120,8 @@ class User {
             foreach ($result as $row) {
                 $loadedUser = new User();
                 $loadedUser->id = $row['id'];
-                $loadedUser->setUsername($row['username']);
+                $loadedUser->setName($row['name']);
+                $loadedUser->setSurname($row['surname']);
                 $loadedUser->setHashPass($row['hashPass']);
                 $loadedUser->setEmail($row['email']);
                 $loadedUser->setAccessLevel($row['accessLevel']);
@@ -140,7 +153,8 @@ class User {
             
             $loadedUser = new User();
             $loadedUser->id = $row['id'];
-            $loadedUser->setUsername($row['username']);
+            $loadedUser->setName($row['name']);
+            $loadedUser->setSurname($row['surname']);
             $loadedUser->setHashPass($row['hashPass']);
             $loadedUser->setEmail($row['email']);
             $loadedUser->setAccessLevel($row['accessLevel']);

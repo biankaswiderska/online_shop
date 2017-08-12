@@ -2,9 +2,9 @@
 //namespace OShop;
 require_once __DIR__ . '/../conn.php';
 require_once __DIR__ . '/Order.php';
-require_once __DIR__ . '/ProductInBasket.php';
+require_once __DIR__ . '/ProductInCart.php';
 
-class Basket {
+class Cart {
     private $id;
     private $ownerId;
     private $products;
@@ -96,7 +96,7 @@ class Basket {
 //    }
     
     private function saveToSession() {
-        $_SESSION['basket'] = $this;
+        $_SESSION['cart'] = $this;
     }
     
     public function createOrder() {
