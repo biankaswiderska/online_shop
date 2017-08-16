@@ -7,17 +7,18 @@ include __DIR__ . '/navibar.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
-    if (User::login($conn, $email, $password)) {
-        header('Location: /index.php');
+    $user = User::login($conn, $email, $password);
+    if ($user) {
+        $_SESSION['userId'] = $user->getId();
+        header('Location: ./index.php');
     }
     else {
-        $_SESSION['LoginMsg'] = 'Logowanie nieudane';
+        var_dump(User::loadUserByEmail($conn, $email));
+        var_dump($user);
+        $_SESSION['LoginMsg'] = 'Login fail';
     }        
 
 }
-
-
-
 ?>
 <div class="container-fluid">
 	<div class="row">
