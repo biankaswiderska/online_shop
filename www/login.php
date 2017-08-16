@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
     $user = User::login($conn, $email, $password);
     if ($user) {
+        $_SESSION['userId'] = $user->getId();
         header('Location: ./index.php');
     }
     else {
