@@ -19,6 +19,9 @@
         }
     ],
     "autoload": {
-        "psr-4": {"OShop\\": "src/"}
+        "psr-4": {
+            "OShop\\": "src/",
+            "Oshop\\Test\\": "tests/"
+        }
     }
 }
