@@ -10,7 +10,7 @@
                     <span class="icon-bar"></span>Services
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Online shop</a>
+                <a class="navbar-brand" href="./index.php">Online shop</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

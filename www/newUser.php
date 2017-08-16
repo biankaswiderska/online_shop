@@ -7,40 +7,41 @@ include __DIR__ . '/navibar.php';
 		<div class="col-md-4">
 		</div>
 		<div class="col-md-4">
-			<form role="form">
-				<div class="form-group">
-					 
-					<label for="exampleInputEmail1">
-						Email address
-					</label>
-					<input type="email" class="form-control" id="exampleInputEmail1" />
-				</div>
-				<div class="form-group">
-					 
-					<label for="exampleInputPassword1">
-						Password
-					</label>
-					<input type="password" class="form-control" id="exampleInputPassword1" />
-				</div>
-				<div class="form-group">
-					 
-					<label for="exampleInputFile">
-						File input
-					</label>
-					<input type="file" id="exampleInputFile" />
-					<p class="help-block">
-						Example block-level help text here.
-					</p>
-				</div>
-				<div class="checkbox">
-					 
-					<label>
-						<input type="checkbox" /> Check me out
-					</label>
-				</div> 
-				<button type="submit" class="btn btn-default">
-					Submit
-				</button>
+                    <form role="form" method="post" action="./../api/newUserAction.php">
+                        <div class="form-group">
+                                <label for="name">
+                                        Name
+                                </label>
+                                <input type="text" class="form-control" name="name"/>
+                        </div>
+                        <div class="form-group">
+                                <label for="surname">
+                                        Surname
+                                </label>
+                                <input type="text" class="form-control" name="surname" />
+                        </div>
+                        <div class="form-group">
+                                <label for="email">
+                                        E-mail
+                                </label>
+                                <input type="email" class="form-control" name="email" />
+                        </div>
+                        <div class="form-group">
+                                <label for="password">
+                                        Password
+                                </label>
+                                <input type="password" class="form-control" name="password" />
+                        </div>
+                        <div class="form-group">
+                                <label for="passwordcheck">
+                                        Password check
+                                </label>
+                                <input type="password" class="form-control" name="passwordCheck" />
+                        </div>
+
+                        <button type="submit" class="btn btn-default">
+                                Submit
+                        </button>
 			</form>
 		</div>
 		<div class="col-md-4">

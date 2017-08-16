@@ -13,9 +13,10 @@ class User {
     public function __construct() {
         $this->id = -1;
         $this->name = '';
+        $this->surname = '';
         $this->email = '';
         $this->hashPass = '';
-        $this->accessLevel;
+        $this->accessLevel = 1;
     }
     
     public function getId() {
@@ -165,7 +166,6 @@ class User {
     
     static public function login(PDO $conn, $email, $password) {
         $user = self::loadUserByEmail($conn, $email);
-        
         if($user) {
             if(password_verify($password, $user->getHashPass())) {
                 return $user;
