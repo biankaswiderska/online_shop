@@ -47,7 +47,7 @@ class User {
         $this->accessLevel = $accessLevel;
     }
     public function setPassword($password) {
-        $this->hashPass = password_hash($password, PASSWORD_DEFAULT);
+        $this->hashPass = password_hash($password, PASSWORD_BCRYPT);
         
     }
     function getSurname() {
