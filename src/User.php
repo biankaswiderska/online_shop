@@ -47,7 +47,7 @@ class User {
         $this->accessLevel = $accessLevel;
     }
     public function setPassword($password) {
-        $this->hashPass = password_hash($password, PASSWORD_BCRYPT);
+        $this->hashPass = password_hash($password, PASSWORD_DEFAULT);
         
     }
     function getSurname() {
@@ -67,7 +67,7 @@ class User {
                 'name' => $this->name, 
                 'surname' => $this->surname, 
                 'email'=> $this->email, 
-                'pass' => password_hash($this->hashPass, PASSWORD_BCRYPT),
+                'pass' => $this->hashPass,
                 'accessLevel' => $this->accessLevel]);
             
             if ($result !== false) {
@@ -156,7 +156,7 @@ class User {
             $loadedUser->id = $row['id'];
             $loadedUser->setName($row['name']);
             $loadedUser->setSurname($row['surname']);
-            $loadedUser->setHashPass($row['hashPass']);
+            $loadedUser->setHashPass(trim($row['hashPass']));
             $loadedUser->setEmail($row['email']);
             $loadedUser->setAccessLevel($row['accessLevel']);
 
