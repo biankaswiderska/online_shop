@@ -3,7 +3,9 @@
     "description": "Online shop for coderslab courses",
     "type": "project",
     "require": {
-        "robmorgan/phinx": "^0.8.1"
+        "robmorgan/phinx": "^0.8.1",
+        "phpunit/dbunit": ">=1.2"
+
     },
     "require-dev": {
         "phpunit/phpunit": "5.*"

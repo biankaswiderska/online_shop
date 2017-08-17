@@ -9,10 +9,9 @@ class Product {
     private $name;
     private $description;
     private $releaseDate;
-    private $sizeClass;
 
 
-    public function __construct($price, $name, $description, $releaseDate, $sizeClass, $id = -1) {
+    public function __construct($price, $name, $description, $releaseDate, $id = -1) {
         if ($id = -1) {
             $this->id = -1;
         }
@@ -23,21 +22,19 @@ class Product {
         $this->setName($name);
         $this->setDescription($description);
         $this->setreleaseDate($releaseDate);
-        $this->setSizeClass($sizeClass);
         return $this;
     }
 
     public function saveToDB(PDO $conn) {
         if($this->id == -1) {
-            $stmt = $conn->prepare('INSERT INTO Products (price, name, description, releaseDate, sizeClass) '
-                    . 'VALUES (:price, :name, :description, :releaseDate, :sizeClass)');
+            $stmt = $conn->prepare('INSERT INTO Products (price, name, description, releaseDate) '
+                    . 'VALUES (:price, :name, :description, :releaseDate)');
 
             $result = $stmt->execute([
                 'price' => $this->price,
                 'name'=> $this->name,
                 'description' => $this->description,
-                'releaseDate' => $this->releaseDate,
-                'sizeClass' => $this->sizeClass]);
+                'releaseDate' => $this->releaseDate]);
 
             if ($result !== false) {
                 $this->id = $conn->lastInsertId();
@@ -49,8 +46,7 @@ class Product {
                     . 'SET price=:price, '
                     . 'name=:name, '
                     . 'description=:description, '
-                    . 'releaseDate=:releaseDate, '
-                    . 'sizeClass=:sizeClass'
+                    . 'releaseDate=:releaseDate '
                     . 'WHERE id=:id');
 
             $result = $stmt->execute([
@@ -58,7 +54,6 @@ class Product {
                 'name' => $this->name,
                 'description' => $this->description,
                 'releaseDate' => $this->releaseDate,
-                'sizeClass' => $this->sizeClass,
                 'id' => $this->id]);
 
             return $result;
@@ -80,7 +75,6 @@ class Product {
             $loadedProduct->setName($row['name']);
             $loadedProduct->setDescription($row['description']);
             $loadedProduct->setReleaseDate($row['releaseDate']);
-            $loadedProduct->setSizeClass($row['sizeClass']);
             return $loadedProduct;
         }
     }
@@ -98,7 +92,6 @@ class Product {
                 $loadedProduct->setName($row['name']);
                 $loadedProduct->setDescription($row['description']);
                 $loadedProduct->setreleaseDate($row['releaseDate']);
-                $loadedProduct->setSizeClass($row['sizeClass']);
                 $ret[] = $loadedProduct;
             }
         }
@@ -157,17 +150,10 @@ class Product {
         return $this->releaseDate;
     }
 
-    function getSizeClass() {
-        return $this->sizeClass;
-    }
-
     function setReleaseDate($releaseDate) {
         $this->releaseDate = $releaseDate;
     }
 
-    function setSizeClass($sizeClass) {
-        $this->sizeClass = $sizeClass;
-    }
 
 
 }
