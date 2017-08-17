@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         var_dump(User::loadUserByEmail($conn, $email));
         var_dump($user);
         $_SESSION['LoginMsg'] = 'Login fail';
-    }        
+    }
 
 }
 ?>
@@ -34,14 +34,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     ?>
                         <form role="form" method="POST" action="./login.php">
 				<div class="form-group">
-					 
+
 					<label for="email">
 						Email address
 					</label>
 					<input type="email" class="form-control" name="email" />
 				</div>
 				<div class="form-group">
-					 
+
 					<label for="password">
 						Password
 					</label>
@@ -51,11 +51,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					<label>
 						<input type="checkbox" name="cookieCheck"/> Remember me!
 					</label>
-				</div> 
+				</div>
                                 <button type="submit" class="btn btn-default">
 					Log in!
 				</button>
-                            
+
 			</form>
 		</div>
                     <div class="col-md-4">

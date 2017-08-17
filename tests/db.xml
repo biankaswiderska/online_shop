@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<dataset>
+  <table name="Addresses">
+    <column>id</column>
+    <column>street</column>
+    <column>streetno</column>
+    <column>localno</column>
+    <column>postcode</column>
+    <column>city</column>
+    <column>country</column>
+    <column>userId</column>
+    <row>
+      <value>1</value>
+      <value>Wolska</value>
+      <value>20</value>
+      <value>5</value>
+      <value>01-248</value>
+      <value>Warszawa</value>
+      <value>1</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>Kolista</value>
+      <value>19</value>
+      <value>8</value>
+      <value>07-243</value>
+      <value>Katowice</value>
+      <value>2</value>
+    </row>
+    <row>
+      <value>3</value>
+      <value>Krakowska</value>
+      <value>1</value>
+      <value>255</value>
+      <value>30-689</value>
+      <value>Kraków</value>
+      <value>3</value>
+    </row>
+  </table>
+  <table name="Admins">
+    <column>id</column>
+    <column>login</column>
+    <column>email</column>
+    <column>password</column>
+    <row>
+      <value>1</value>
+      <value>admin1</value>
+      <value>admin1@admin</value>
+      <value>admin1@admin</value>
+      <value><$2y$10$msvwdSYrgmj177rO7UaSBu2P6cAn3MPLgy/rbDmMs61uYbJVbU9Fy</value>
+    </row>
+  </table>
+  <table name="Categories">
+    <column>id</column>
+    <column>name</column>
+    <column>description</column>
+    <row>
+      <value>1</value>
+      <value>comedy</value>
+      <value>Films which are designed to make the audience laugh</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>horror</value>
+      <value>Films in which very frightening or unnatural things happen</value>
+    </row>
+    <row>
+      <value>3</value>
+      <value>drama</value>
+      <value>Films that portray realistic characters in difficult, life-changing situations</value>
+    </row>
+  </table>
+  <table name="Orders">
+    <column>id</column>
+    <column>ownerId</column>
+    <column>creationDate</column>
+    <column>status</column>
+    <column>products</column>
+    <column>totalValue</column>
+    <row>
+      <value>1</value>
+      <value>1</value>
+      <value>2017-08-08 23:24:10</value>
+      <value>0</value>
+      <value>a:1:{i:-1;O:15:"ProductInBasket":4:{s:22:"�ProductInBasket�value";i:25;s:22:"�ProductInBasket�price";i:5;s:23:"�ProductInBasket�amount";i:5;s:24:"�ProductInBasket�product";O:7:"Product":6:{s:11:"�Product�id";i:-1;s:14:"�Product�price";i:5;s:13:"�Product�name";s:7:"Movie 1";s:20:"�Product�description";s:19:"Description movie 1";s:15:"�Product�weight";i:4;s:18:"�Product�sizeClass";i:1;}}}</value>
+      <value>15</value>
+    </row>
+  </table>
+  <table name="Products">
+    <column>id</column>
+    <column>name</column>
+    <column>price</column>
+    <column>description</column>
+    <column>releaseDate</column>
+
+
+    <row>
+      <value>1</value>
+      <value>comedy</value>
+      <value>Films which are designed to make the audience laugh</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>horror</value>
+      <value>Films in which very frightening or unnatural things happen</value>
+    </row>
+    <row>
+      <value>3</value>
+      <value>drama</value>
+      <value>Films that portray realistic characters in difficult, life-changing situations</value>
+    </row>
+  </table>
+</dataset>
