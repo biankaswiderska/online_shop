@@ -62,7 +62,6 @@ class User {
         if($this->id == -1) {
             $stmt = $conn->prepare('INSERT INTO Users (name, surname, email, hashPass, accessLevel) '
                     . 'VALUES (:name, :surname, :email, :pass, :accessLevel)');
-<<<<<<< HEAD
 
             $result = $stmt->execute([
                 'name' => $this->name,
