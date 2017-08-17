@@ -19,7 +19,7 @@
                         <a href="#">Homepage</a>
                     </li>
                     <li>
-                        <a href="#">My profile</a>
+                        <a href="./../www/userPanel.php">My profile</a>
                     </li>
                     <li>
                         <a href="#">Contact</a>
@@ -28,6 +28,13 @@
                         if (isset($_SESSION['userId'])) {
                             echo '<li>
                                     <a href="./logout.php">Logout</a>
+                                </li>';
+                        }
+                        elseif (isset($_SESSION['adminId'])){
+                            echo '<li>
+                                <a href="./adminPanel.php">Admin Panel</a>
+                                </li><li>
+                                    <a href="./logoutAdmin.php">You are logged as admin. Click to logout</a>
                                 </li>';
                         }
                         else {

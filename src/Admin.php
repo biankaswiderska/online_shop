@@ -6,6 +6,18 @@ class Admin {
     private $password;
     private $email;
     
+    public function __construct($id = -1) {
+        if ($id == -1) {
+            $this->id = -1;
+        }
+        else {
+            $this->id = $id;
+        }
+        $this->login = null;
+        $this->password = null;
+        $this->email = null;
+        
+    }
     
     function getId() {
         return $this->id;
@@ -28,7 +40,7 @@ class Admin {
     }
 
     function setPassword($password) {
-        $this->password = $password;
+        $this->password = password_hash($password, PASSWORD_BCRYPT);
     }
     
     function getEmail() {
@@ -50,15 +62,18 @@ class Admin {
             $loadedUser = new Admin();
             $loadedUser->id = $row['id'];
             $loadedUser->setLogin($row['login']);
+            $loadedUser->setEmail($row['email']);
+            $loadedUser->password = ($row['password']);
             return $loadedUser;
         }
     }    
 
     static public function login(PDO $conn, $login, $password) {
         $user = self::loadAdminByLogin($conn, $login);
-        
         if($user) {
-            if(password_verify($password, $user->getLogin())) {
+        var_dump($user);
+            
+            if(password_verify($password, $user->getPassword())) {
                 return $user;
             } else {
                 return false;

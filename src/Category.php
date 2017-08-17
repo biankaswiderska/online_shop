@@ -1,5 +1,4 @@
 <?php
-namespace OShop;
 
 require_once __DIR__ . '/../conn.php';
 
@@ -8,15 +7,15 @@ class Category {
     private $name;
     private $description;
     
-    public function __construct($name = '', $desciption = '', $id = -1) {
+    public function __construct($name = '', $description = '', $id = -1) {
         if ($id == -1) {
             $this->id = -1;
         }
         else {
             $this->id = $id;
         }
-        $this->name = $this->setName($name);
-        $this->description = $this->setDescription($description);
+        $this->name = $name;
+        $this->description = $description;
         return $this;
     }
     
@@ -54,6 +53,7 @@ class Category {
         $array = [];
         $result = $conn->query($sql);
         if ($result !== false && $result->rowCount() != 0) {
+//            $row = $result->fetch(PDO::FETCH_ASSOC);
             foreach ($result as $row) {
                 $loadedCategory = new Category($row['name'], $row['description'], $row['id']);
                 $array[] = $loadedCategory;

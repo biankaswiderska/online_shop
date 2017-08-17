@@ -5,7 +5,9 @@ include __DIR__ . '/navibar.php';
 
 if(isset($_SESSION['userId'])) {
 	unset($_SESSION['userId']);
+        if (isset($_SESSION['user'])) {
+            unset($_SESSION['user']);
+        }
 }
-header("Location: login.php");
+header("Location: index.php");
 
-include __DIR__ . '/footer.php';
