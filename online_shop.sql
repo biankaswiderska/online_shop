@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Czas generowania: 12 Sie 2017, 08:58
--- Wersja serwera: 5.7.18-0ubuntu0.16.04.1
--- Wersja PHP: 7.0.18-0ubuntu0.16.04.1
+-- Czas generowania: 17 Sie 2017, 01:11
+-- Wersja serwera: 5.7.19-0ubuntu0.16.04.1
+-- Wersja PHP: 7.0.22-0ubuntu0.16.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -46,6 +46,7 @@ CREATE TABLE `Addresses` (
 CREATE TABLE `Admins` (
   `id` int(11) NOT NULL,
   `login` varchar(20) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -121,6 +122,18 @@ INSERT INTO `Products` (`id`, `name`, `price`, `description`, `weight`, `sizeCla
 -- --------------------------------------------------------
 
 --
+-- Struktura tabeli dla tabeli `ProductsCategories`
+--
+
+CREATE TABLE `ProductsCategories` (
+  `id` int(11) NOT NULL,
+  `ProductId` int(11) NOT NULL,
+  `CategoryId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabeli dla tabeli `Reviews`
 --
 
@@ -135,6 +148,18 @@ CREATE TABLE `Reviews` (
 -- --------------------------------------------------------
 
 --
+-- Struktura tabeli dla tabeli `Storage`
+--
+
+CREATE TABLE `Storage` (
+  `id` int(11) NOT NULL,
+  `ProductId` int(11) NOT NULL,
+  `Qty` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabeli dla tabeli `Users`
 --
 
@@ -143,7 +168,7 @@ CREATE TABLE `Users` (
   `name` varchar(100) NOT NULL,
   `surname` varchar(50) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `hashPass` varchar(255) NOT NULL,
+  `hashPass` varchar(60) NOT NULL,
   `accessLevel` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -153,7 +178,13 @@ CREATE TABLE `Users` (
 
 INSERT INTO `Users` (`id`, `name`, `surname`, `email`, `hashPass`, `accessLevel`) VALUES
 (1, 'testname1', 'testsurname1', 'test1@oshop.com', 'test1', 1),
-(2, 'testname2', 'testsurname2', 'test2@oshop.com', '$2y$10$rQbEX/i0o82B4FNpdabIA.FCFPfso58YgdExJQ.TSCABe3mUAiTUS', 1);
+(2, 'testname2', 'testsurname2', 'test2@oshop.com', '$2y$10$rQbEX/i0o82B4FNpdabIA.FCFPfso58YgdExJQ.TSCABe3mUAiTUS', 1),
+(3, 'testname3', 'testsurname3', 'test3@abc.pl', '$2y$10$quKkYlr2/d8rJHHT7TUvJO/A9BBDmyc6j0DdHoMuClZa716/8RXdG', 1),
+(4, 'testname4', 'testname4', 'test4@abc.pl', '$2y$10$ElhXgkNp3PUeBT87ZBjYBegzJwWv5d7AkrFaUzj.USAB96yXSCwjy', 1),
+(5, 'testname5', 'testsurname5', 'test5@abc.pl', '$2y$10$X7/fs1MiZ/fbBvJtoVkbeuZpdbyPVKBEc88lvDNMfEJeY0zrKiWt.', 1),
+(6, 'testname6', 'testsurname6', 'test6@oshop.pl', '$2y$10$GkdJp1pEh.IgpEsY/RKRA.TKtpHjHirFpTHfE3PfLIYSwAAlKV.C2', 1),
+(7, 'testname7', 'testsurname7', 'test7@abc.pl', '$2y$10$599jHrJKUJRMiAw3tsJCJO2nL..WnM/lfiaflo2mCD3ZFhp/Ss9Nu', 1),
+(8, 'testname8', 'testsurname8', 'test8@abc.pl', '$2y$10$RRsH6FDf6HUO5SNIxtWGHO19o8M.nUTmGs5Z.DJLAHpxYXrbmGDN.', 1);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -199,12 +230,27 @@ ALTER TABLE `Products`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `ProductsCategories`
+--
+ALTER TABLE `ProductsCategories`
+  ADD UNIQUE KEY `id` (`id`),
+  ADD KEY `ProductId` (`ProductId`),
+  ADD KEY `CategoryId` (`CategoryId`);
+
+--
 -- Indexes for table `Reviews`
 --
 ALTER TABLE `Reviews`
   ADD PRIMARY KEY (`id`),
   ADD KEY `sdag` (`authorId`),
   ADD KEY `gdg` (`productId`);
+
+--
+-- Indexes for table `Storage`
+--
+ALTER TABLE `Storage`
+  ADD UNIQUE KEY `id` (`id`),
+  ADD KEY `ProductId` (`ProductId`);
 
 --
 -- Indexes for table `Users`
@@ -247,15 +293,25 @@ ALTER TABLE `Photos`
 ALTER TABLE `Products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT dla tabeli `ProductsCategories`
+--
+ALTER TABLE `ProductsCategories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT dla tabeli `Reviews`
 --
 ALTER TABLE `Reviews`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT dla tabeli `Storage`
+--
+ALTER TABLE `Storage`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT dla tabeli `Users`
 --
 ALTER TABLE `Users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- Ograniczenia dla zrzutów tabel
 --
@@ -273,11 +329,24 @@ ALTER TABLE `Orders`
   ADD CONSTRAINT `toUsers` FOREIGN KEY (`ownerId`) REFERENCES `Users` (`id`);
 
 --
+-- Ograniczenia dla tabeli `ProductsCategories`
+--
+ALTER TABLE `ProductsCategories`
+  ADD CONSTRAINT `ProductsCategories_ibfk_1` FOREIGN KEY (`ProductId`) REFERENCES `Products` (`id`),
+  ADD CONSTRAINT `ProductsCategories_ibfk_2` FOREIGN KEY (`CategoryId`) REFERENCES `Categories` (`id`);
+
+--
 -- Ograniczenia dla tabeli `Reviews`
 --
 ALTER TABLE `Reviews`
   ADD CONSTRAINT `gdg` FOREIGN KEY (`productId`) REFERENCES `Products` (`id`),
   ADD CONSTRAINT `sdag` FOREIGN KEY (`authorId`) REFERENCES `Users` (`id`);
+
+--
+-- Ograniczenia dla tabeli `Storage`
+--
+ALTER TABLE `Storage`
+  ADD CONSTRAINT `Storage_ibfk_1` FOREIGN KEY (`ProductId`) REFERENCES `Products` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
