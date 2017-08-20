@@ -11,13 +11,8 @@ class Order {
     private $totalValue;
     
     public function __construct($ownerId, $creationDate, $status = 0, $products = [], $totalValue = '', $id = -1) {
-        if ($id == -1) {
-           $this->id = -1; 
-        }
-        else {
-            $this->setId($id);
-        }
-        $this->setProducs($products);
+        $this->setId($id);
+        $this->setProducts($products);
         $this->setOwnerId($ownerId);
         $this->setCreationDate($creationDate);
         $this->setStatus($status);
@@ -63,7 +58,20 @@ class Order {
         
         return false;
     }
-    
+ 
+
+    static public function loadAllOrders(PDO $conn) {
+        $sql = "SELECT * FROM Orders";
+        $ret = [];
+        $result = $conn->query($sql);
+        if ($result !== false && $result->rowCount() != 0) {
+            foreach ($result as $row) {
+                $loadedOrder = new Order($row['ownerId'], $row['creationDate'], $row['status'], $row['products'], $row['totalValue'], $row['id']);
+                $ret[] = $loadedOrder;
+            }
+        }
+        return $ret;
+    }
     
     function getId() {
         return $this->id;
@@ -81,7 +89,7 @@ class Order {
         return $this->status;
     }
 
-    function getProducs() {
+    function getProducts() {
         return $this->products;
     }
 
@@ -105,7 +113,7 @@ class Order {
         $this->status = $status;
     }
 
-    function setProducs($products) {
+    function setProducts($products) {
         $this->products = $products;
     }
 

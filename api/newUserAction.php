@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $newUser->setHashPass(password_hash($_POST['password'], PASSWORD_BCRYPT));
         $newUser->saveToDB($conn);
         if ($newUser) {
-            header("Location: ./../www/userPanel.php");
+            header("Location: ./../www/login.php");
             die();
         }
         else {

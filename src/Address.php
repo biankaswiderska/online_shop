@@ -11,12 +11,7 @@ class Address {
     private $userId;
 
     function __construct($street, $streetno, $localno, $postcode, $city, $country, $userId, $id = -1) {
-        if ($if == -1) {
-            $this->setId(-1);
-        }
-        else {
-            $this->setId($id);
-        }
+        $this->setId($id);
         $this->setStreet($street);
         $this->setStreetno($streetno);
         $this->setLocalno($localno);

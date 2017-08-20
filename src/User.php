@@ -10,8 +10,8 @@ class User {
     private $hashPass;
     private $accessLevel;
 
-    public function __construct() {
-        $this->id = -1;
+    public function __construct($id = 1) {
+        $this->id = $id;
         $this->name = '';
         $this->surname = '';
         $this->email = '';
@@ -23,7 +23,7 @@ class User {
         return $this->id;
     }
     public function getName() {
-        return $this->name;
+        return ucfirst($this->name);
     }
     public function getEmail() {
         return $this->email;
@@ -35,7 +35,7 @@ class User {
         return $this->accessLevel;
     }
     public function setName($name) {
-        $this->name = $name;
+        $this->name = ucfirst($name);
     }
     public function setEmail($email) {
         $this->email = $email;
@@ -50,11 +50,11 @@ class User {
         $this->hashPass = password_hash($password, PASSWORD_BCRYPT);
 
     }
-    function getSurname() {
-        return $this->surname;
+    public function getSurname() {
+        return ucfirst($this->surname);
     }
-    function setSurname($surname) {
-        $this->surname = $surname;
+    public function setSurname($surname) {
+        $this->surname = ucfirst($surname);
     }
 
 

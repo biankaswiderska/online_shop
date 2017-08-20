@@ -1,10 +1,11 @@
 <?php
 include __DIR__ . '/header.php';
 include __DIR__ . '/navibar.php';
-//if (!isset($_SESSION['userId'])) {
-//    header("Location: ./../www/newUser.php");
-//    die();
-//}
+if (!isset($_SESSION['userId'])) {
+    header("Location: ./../www/newUser.php");
+    die();
+}
+$user = unserialize($_SESSION['user']);
 
 ?>
 
@@ -25,7 +26,7 @@ include __DIR__ . '/navibar.php';
 				Lorem button
                         </button> </div>
 		</div>
-		<div class="col-md-10">
+		<div class="col-md-8">
                     <div class="row"><h3>
 				Workspace
                         </h3></div>
@@ -50,7 +51,7 @@ include __DIR__ . '/navibar.php';
 
                             }
                             else {
-                                echo 'Welcome to the best online movie shop!';
+                                echo 'Hello '.$user->getName().' '.$user->getSurname().'!';
                             }
                         }
                         ?>

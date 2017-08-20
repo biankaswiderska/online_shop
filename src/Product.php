@@ -12,12 +12,7 @@ class Product {
 
 
     public function __construct($price, $name, $description, $releaseDate, $id = -1) {
-        if ($id = -1) {
-            $this->id = -1;
-        }
-        else {
-            $this->setId($id);
-        }
+        $this->setId($id);
         $this->setPrice($price);
         $this->setName($name);
         $this->setDescription($description);
@@ -86,12 +81,7 @@ class Product {
         $result = $conn->query($sql);
         if ($result !== false && $result->rowCount() != 0) {
             foreach ($result as $row) {
-                $loadedProduct = new Product();
-                $loadedProduct->id = $row['id'];
-                $loadedProduct->setPrice($row['price']);
-                $loadedProduct->setName($row['name']);
-                $loadedProduct->setDescription($row['description']);
-                $loadedProduct->setreleaseDate($row['releaseDate']);
+                $loadedProduct = new Product($row['price'], $row['name'], $row['description'], $row['releaseDate'], $row['id']);
                 $ret[] = $loadedProduct;
             }
         }

@@ -5,13 +5,13 @@ include __DIR__ . '/navibar.php';
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = $_POST['email'];
+    $login = $_POST['login'];
     $password = $_POST['password'];
-    $user = User::login($conn, $email, $password);
-    if ($user) {
-        $_SESSION['userId'] = $user->getId();
-        $_SESSION['user'] = serialize($user);
-        header('Location: ./index.php');
+    $admin = Admin::login($conn, $login, $password);
+    if ($admin) {
+        $_SESSION['adminId'] = $admin->getId();
+        $_SESSION['admin'] = serialize($admin);
+        header('Location: adminPanel.php');
     }
     else {
         $_SESSION['LoginMsg'] = 'Login fail';
@@ -22,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-4">
-                    <button type="button" class="btn btn-default" onclick="location.href='./newUser.php';">I'm new here</button>
 	</div>
 		<div class="col-md-4">
                     <?php
@@ -31,13 +30,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             unset($_SESSION['LoginMsg']);
                         }
                     ?>
-                        <form role="form" method="POST" action="./login.php">
+                    <h2>Admin login</h2>
+                        <form role="form" method="POST" action="./loginAdmin.php">
 				<div class="form-group">
 
-					<label for="email">
-						Email address
+					<label for="login">
+						Login
 					</label>
-					<input type="email" class="form-control" name="email" />
+					<input type="text" class="form-control" name="login" />
 				</div>
 				<div class="form-group">
 
@@ -46,11 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					</label>
 					<input type="password" class="form-control" name="password" />
 				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" name="cookieCheck"/> Remember me!
-					</label>
-				</div>
                                 <button type="submit" class="btn btn-default">
 					Log in!
 				</button>
@@ -58,7 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			</form>
 		</div>
                     <div class="col-md-4">
-                        <a href="./loginAdmin.php">Administrator login</a>
 		</div>
 	</div>
 </div>
