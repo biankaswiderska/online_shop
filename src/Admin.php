@@ -7,12 +7,7 @@ class Admin {
     private $email;
     
     public function __construct($id = -1) {
-        if ($id == -1) {
-            $this->id = -1;
-        }
-        else {
-            $this->id = $id;
-        }
+        $this->setId($id);
         $this->login = null;
         $this->password = null;
         $this->email = null;

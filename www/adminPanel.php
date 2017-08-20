@@ -84,6 +84,18 @@ if (!isset($_SESSION['adminId'])) {
                             if ($_GET['action'] == 'addProduct') {
                                 include __DIR__ . '/admin/addProduct.php';
                             }
+                            if ($_GET['action'] == 'showProductsAll') {
+                                include __DIR__ . '/admin/showProductsAll.php';
+                            }
+                            if ($_GET['action'] == 'showCategoriesAll') {
+                                include __DIR__ . '/admin/showCategoriesAll.php';
+                            }
+                            if ($_GET['action'] == 'showUsersAll') {
+                                include __DIR__ . '/admin/showUsersAll.php';
+                            }
+                            if ($_GET['action'] == 'showOrdersAll') {
+                                include __DIR__ . '/admin/showOrdersAll.php';
+                            }
                         }
 //                        if ($_SERVER['REQUEST_METHOD'] == "GET") {
 //                            if (isset($_GET['target'])) {

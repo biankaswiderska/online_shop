@@ -8,12 +8,7 @@ class Category {
     private $description;
     
     public function __construct($name = '', $description = '', $id = -1) {
-        if ($id == -1) {
-            $this->id = -1;
-        }
-        else {
-            $this->id = $id;
-        }
+        $this->setId($id);
         $this->name = $name;
         $this->description = $description;
         return $this;

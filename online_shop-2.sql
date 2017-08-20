@@ -82,8 +82,8 @@ CREATE TABLE `Orders` (
 --
 
 INSERT INTO `Orders` (`id`, `ownerId`, `creationDate`, `status`, `products`, `totalValue`) VALUES
-(1, 1, '2017-08-08 23:24:10', 0, 'a:1:{i:-1;O:15:\"ProductInBasket\":4:{s:22:\"\0ProductInBasket\0value\";i:25;s:22:\"\0ProductInBasket\0price\";i:5;s:23:\"\0ProductInBasket\0amount\";i:5;s:24:\"\0ProductInBasket\0product\";O:7:\"Product\":6:{s:11:\"\0Product\0id\";i:-1;s:14:\"\0Product\0price\";i:5;s:13:\"\0Product\0name\";s:7:\"Movie 1\";s:20:\"\0Product\0description\";s:19:\"Description movie 1\";s:15:\"\0Product\0weight\";i:4;s:18:\"\0Product\0sizeClass\";i:1;}}}', 15),
-(2, 1, '2017-08-08 23:24:19', 0, 'a:1:{i:-1;O:15:\"ProductInBasket\":4:{s:22:\"\0ProductInBasket\0value\";i:25;s:22:\"\0ProductInBasket\0price\";i:5;s:23:\"\0ProductInBasket\0amount\";i:5;s:24:\"\0ProductInBasket\0product\";O:7:\"Product\":6:{s:11:\"\0Product\0id\";i:-1;s:14:\"\0Product\0price\";i:5;s:13:\"\0Product\0name\";s:7:\"Movie 1\";s:20:\"\0Product\0description\";s:19:\"Description movie 1\";s:15:\"\0Product\0weight\";i:4;s:18:\"\0Product\0sizeClass\";i:1;}}}', 15);
+(1, 1, '2017-08-08 23:24:10', 0, 'a:1:{i:-1;O:15:\"ProductInCart\":4:{s:22:\"\0ProductInCart\0value\";i:25;s:22:\"\0ProductInCart\0price\";i:5;s:23:\"\0ProductInCart\0amount\";i:5;s:24:\"\0ProductInCart\0product\";O:7:\"Product\":6:{s:11:\"\0Product\0id\";i:-1;s:14:\"\0Product\0price\";i:5;s:13:\"\0Product\0name\";s:7:\"Movie 1\";s:20:\"\0Product\0description\";s:19:\"Description movie 1\";s:15:\"\0Product\0weight\";i:4;s:18:\"\0Product\0sizeClass\";i:1;}}}', 15),
+(2, 1, '2017-08-08 23:24:19', 0, 'a:1:{i:-1;O:15:\"ProductInCart\":4:{s:22:\"\0ProductInCart\0value\";i:25;s:22:\"\0ProductInCart\0price\";i:5;s:23:\"\0ProductInCart\0amount\";i:5;s:24:\"\0ProductInCart\0product\";O:7:\"Product\":6:{s:11:\"\0Product\0id\";i:-1;s:14:\"\0Product\0price\";i:5;s:13:\"\0Product\0name\";s:7:\"Movie 1\";s:20:\"\0Product\0description\";s:19:\"Description movie 1\";s:15:\"\0Product\0weight\";i:4;s:18:\"\0Product\0sizeClass\";i:1;}}}', 15);
 
 -- --------------------------------------------------------
 

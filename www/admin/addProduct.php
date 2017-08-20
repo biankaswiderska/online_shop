@@ -1,12 +1,28 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['name']) && isset($_POST['description']) && isset($_POST['price']) && isset($_POST['category'])) {
-        $newProduct = new Product($_POST['price'], $_POST['name'], $_POST['description'], $_POST['date']);
-        if ($newProduct->saveToDB($conn)) {
-            $_SESSION['addProductMsg'] = 'Success!';
+    if (isset($_POST['name']) && isset($_POST['description']) && isset($_POST['price']) && isset($_POST['category'])){
+        if ($_POST['name'] != '' && $_POST['description'] != '' && $_POST['price'] != '' && $_POST['category'] != '') { 
+            $newProduct = new Product($_POST['price'], $_POST['name'], $_POST['description'], $_POST['date']);
+            var_dump($_FILES);
+            if ($newProduct->saveToDB($conn)) {
+                $uploaddir = __DIR__ . './../photos/';
+                $uploadfile = $uploaddir . $newProduct->getId(). '/' . 1;
+                if(move_uploaded_file($_FILES['photos']['tmp_name'], $uploadfile)) {
+                    echo("File is valid, and was successfully uploaded.\n");
+                } else {
+                    echo("Possible file upload attack!\n");
+                }
+                $_SESSION['addProductMsg'] = 'Success!';
+                echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
+            }
+            else {
+                $_SESSION['addProductMsg'] = 'Fail!';
+                echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
+            }
         }
         else {
-            $_SESSION['addProductMsg'] = 'Fail!';
+            $URL = "";
+            echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
         }
     }
 }

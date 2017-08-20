@@ -10,8 +10,8 @@ class User {
     private $hashPass;
     private $accessLevel;
 
-    public function __construct() {
-        $this->id = -1;
+    public function __construct($id = 1) {
+        $this->id = $id;
         $this->name = '';
         $this->surname = '';
         $this->email = '';
